@@ -220,7 +220,7 @@ map.on('popupopen', function(e) {
 		$.getJSON("http://api.teosto.fi/"+year+"/show?id="+markerShowIDs.get(marker)+"&method=works", function(data) {
             console.log(JSON.stringify(data));
 			var content = e.popup.getContent();
-			content = content + "<img src='kaiutinmini.png' class='kuva' /> <div id=\"alaosa\"><div class=\"settilista\">";
+			content = content + "<img src='/Images/kaiutinmini.png' class='kuva' /> <div id=\"alaosa\"><div class=\"settilista\">";
 			for (var i=0; i < data.works.length; ++i) {
 				content = content + data.works[i].title + "<br>";
 			}
@@ -268,7 +268,7 @@ $(document).on("click", "#resetsearchbtn", function(){
 	document.getElementById("resetsearch").style.display = "none";
 	document.getElementById("wikipedia").style.display = "none";
 	document.getElementById("info").style.display = "block";
-	document.querySelector('.hakualue').style.backgroundImage = "url(searchicon.png)";
+	document.querySelector('.hakualue').style.backgroundImage = "url(/Images/searchicon.png)";
 	$('#info').scrollTop(0);
 	$('#info').perfectScrollbar('update');
 });        
