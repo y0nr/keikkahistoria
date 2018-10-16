@@ -47,28 +47,26 @@ document.getElementById("loader").style.display = "none";
 document.getElementById("wikipedia").style.display = "none";
 
 var options = {
-	url: "artists.json",
-	
-	getValue: function(element) {
-		return element.name;
+	url: function(phrase) {
+		var year = $("#changeyear select").val();
+		console.log("http://api.teosto.fi/"+year+"/performer?name=" + phrase)
+		return "http://api.teosto.fi/"+year+"/performer?name=" + phrase;
 	},
-	
+	requestDelay: 500,
+	listLocation: "performers",
+	getValue: "name",
+	ajaxSettings: {
+		dataType: "json"
+	},
 	list: {
 		maxNumberOfElements: 80,
 		match: {
-			enabled: true,
-			method:  function(element, phrase) {
-				if(element.indexOf(phrase) === 0) {
-					return true;
-				} else {
-					return false;
-				}
-			}
+			enabled: true
 		},
 		onChooseEvent: function() {
 			var artistInput = $("#provider-json").getSelectedItemData().name;
-			var idsInput = $("#provider-json").getSelectedItemData().ids;
-			selectArtist(artistInput, idsInput);
+			var idInput = $("#provider-json").getSelectedItemData().id;
+			selectArtist(artistInput, idInput);
 		}
 	},
 	highlightPhrase: false,
@@ -108,7 +106,7 @@ var showTotal = 0;
 var showCounts = 0;
 var artist = '';
 
-function selectArtist(artistInput, idsInput) {
+function selectArtist(artistInput, idInput) {
 	if (!searchInProgress) {
 		searchInProgress = true;
 		document.getElementById("loader").style.display = "block";
@@ -119,15 +117,10 @@ function selectArtist(artistInput, idsInput) {
 		artist = artistInput;
 		//ga('send', 'event', 'Haku', artist);
 		setWiki(artist);
-		var ids = idsInput;
-		idsLength = ids.length;
-		console.log(ids);
 		map.addLayer(activeMarkers);
 		document.getElementById("provider-json").disabled = true;
 		document.getElementById("provider-json").value = "HAETAAN TIETOJA...";
-		for (var i = 0; i < idsLength; i++) {
-			createMarkers(ids[i]);
-		}
+		createMarkers(idInput);
 	}
 }
 
@@ -138,7 +131,8 @@ function removeMarkers() {
 
 function createMarkers(id) {
 	var markerCount = 0;
-	$.getJSON('http://api.teosto.fi/2014/performer?id='+id+"&method=shows", function(data2) {
+	var year = $("#changeyear select").val()
+	$.getJSON('http://api.teosto.fi/'+year+'/performer?id='+id+"&method=shows", function(data2) {
 		showCount(data2.shows.length);
 		for (var j=0; j < data2.shows.length; ++j) {
 			var show = data2.shows[j].url;
@@ -221,8 +215,9 @@ var initializedPopups = [];
 map.on('popupopen', function(e) {
 	var marker = e.popup._source;
 	if ($.inArray(e.popup, initializedPopups) === -1) { //only get json the first time a popup is opened
-        console.log("http://api.teosto.fi/2014/show?id="+markerShowIDs.get(marker)+"&method=works");
-		$.getJSON("http://api.teosto.fi/2014/show?id="+markerShowIDs.get(marker)+"&method=works", function(data) {
+		var year = $("#changeyear select").val()
+        console.log("http://api.teosto.fi/"+year+"/show?id="+markerShowIDs.get(marker)+"&method=works");
+		$.getJSON("http://api.teosto.fi/"+year+"/show?id="+markerShowIDs.get(marker)+"&method=works", function(data) {
             console.log(JSON.stringify(data));
 			var content = e.popup.getContent();
 			content = content + "<img src='kaiutinmini.png' class='kuva' /> <div id=\"alaosa\"><div class=\"settilista\">";
