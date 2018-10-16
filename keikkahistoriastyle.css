@@ -129,7 +129,7 @@ p#googlehaku {
 	background-color: #fff;
 	width: 30px;
 	height: 30px;
-	background-image: url("mapicon.png");
+	background-image: url("/Images/mapicon.png");
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: contain;
@@ -298,7 +298,7 @@ p#googlehaku {
 	border-style: solid;
 	border-width: 0px;
 	text-align: center;
-	background-image: url("searchicon.png");
+	background-image: url("/Images/searchicon.png");
 	background-repeat: no-repeat;
 	background-position: right 0 center;
 	background-size: contain
@@ -333,7 +333,7 @@ input#provider-json {
 	padding-right: 15px;
 	}
 
-#wikipedia {
+#artistinfo {
 	height: 100%;
 	position:absolute;
 	overflow:hidden;
@@ -471,14 +471,14 @@ input#provider-json {
 	}
 
 .marker, .markerhover, .markerfinal {
-	background-image: url("marker.png");
+	background-image: url("/Images/marker.png");
         background-repeat: no-repeat;
 	background-position: center;
 	background-size: contain
 	}
         
 .markercluster, .markerclusterhover, .markerclusterfinal {
-	background-image: url("clustermarker.png");
+	background-image: url("/Images/clustermarker.png");
         background-repeat: no-repeat;
 	background-position: center;
 	background-size: contain

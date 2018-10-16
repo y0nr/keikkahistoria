@@ -44,7 +44,7 @@ var activeMarkers = L.markerClusterGroup({
 
 var searchInProgress = false;
 document.getElementById("loader").style.display = "none";
-document.getElementById("wikipedia").style.display = "none";
+document.getElementById("artistinfo").style.display = "none";
 
 var options = {
 	url: function(phrase) {
@@ -100,8 +100,6 @@ $('#provider-json').each(function() {
 	});
 });
 
-var idsLength = 0;
-var idsFinished = 0;
 var showTotal = 0;
 var showCounts = 0;
 var artist = '';
@@ -189,25 +187,18 @@ function formatDate(original) {
 function showCount(shows) {
 	++showCounts;
 	showTotal = showTotal + shows;
-	if (showCounts === idsLength) {
-		setShowCount(showTotal);
-		showCounts = 0;
-		showTotal = 0;
-	}
+	setShowCount(showTotal);
+	showCounts = 0;
+	showTotal = 0;
 }
 
 function finishId() {
-	++idsFinished;
-	console.log("finished: " + idsFinished + "/" + idsLength);
-	if (idsFinished === idsLength) {
-		idsFinished = 0;
-		searchInProgress = false;
-		document.getElementById("provider-json").disabled = false;
-		document.getElementById("provider-json").value = artist;
-		document.getElementById("loader").style.display = "none";
-		document.getElementById("resetsearch").style.display = "block";
-		console.log(searchInProgress);
-	}
+	searchInProgress = false;
+	document.getElementById("provider-json").disabled = false;
+	document.getElementById("provider-json").value = artist;
+	document.getElementById("loader").style.display = "none";
+	document.getElementById("resetsearch").style.display = "block";
+	console.log(searchInProgress);
 }
 
 var tooltip;
@@ -258,7 +249,7 @@ map.on('popupclose', function(e) {
 
 $('.openinfo, .closeinfo').on('click', function() {
 	$('.openinfo, .closeinfo, .mobilebackground, .side-panel-top, .side-panel-bottom').toggleClass('mobile-map mobile-infowiki');
-	$('#wikipedia').perfectScrollbar('update');
+	$('#artistinfo').perfectScrollbar('update');
 	$('#info').perfectScrollbar('update');
 });
 
@@ -266,16 +257,16 @@ $(document).on("click", "#resetsearchbtn", function(){
 	removeMarkers();
 	document.getElementById("provider-json").value = "";
 	document.getElementById("resetsearch").style.display = "none";
-	document.getElementById("wikipedia").style.display = "none";
+	document.getElementById("artistinfo").style.display = "none";
 	document.getElementById("info").style.display = "block";
 	document.querySelector('.hakualue').style.backgroundImage = "url(/Images/searchicon.png)";
 	$('#info').scrollTop(0);
 	$('#info').perfectScrollbar('update');
 });        
 
-new ResizeSensor(jQuery('#wikipedia'), function() {
-    console.log('wikipedia has been resized');
-    $('#wikipedia').perfectScrollbar('update');
+new ResizeSensor(jQuery('#artistinfo'), function() {
+    console.log('artistinfo has been resized');
+    $('#artistinfo').perfectScrollbar('update');
 });
 new ResizeSensor(jQuery('#info'), function() {
     console.log('info has been resized');
