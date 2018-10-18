@@ -34,14 +34,6 @@ var activeMarkers = L.markerClusterGroup({
 	}
 });
 
-//activeMarkers.on('clustermouseover', function (a) {
-//    $(a.layer._icon).addClass('markerclusterhover');
-//});
- 
-//activeMarkers.on('clustermouseout', function (a) {
-//    $(a.layer._icon).removeClass('markerclusterhover');
-//});
-
 var searchInProgress = false;
 document.getElementById("loader").style.display = "none";
 document.getElementById("artistinfo").style.display = "none";
@@ -66,6 +58,7 @@ var options = {
 		onChooseEvent: function() {
 			var artistInput = $("#provider-json").getSelectedItemData().name;
 			var idInput = $("#provider-json").getSelectedItemData().id;
+			searchedParse = artistInput;
 			selectArtist(artistInput, idInput);
 		}
 	},
@@ -103,6 +96,7 @@ $('#provider-json').each(function() {
 var showTotal = 0;
 var showCounts = 0;
 var artist = '';
+var artistId = '';
 
 function selectArtist(artistInput, idInput) {
 	if (!searchInProgress) {
@@ -113,7 +107,7 @@ function selectArtist(artistInput, idInput) {
 		removeMarkers();
 		setShowCount(0);
 		artist = artistInput;
-		//ga('send', 'event', 'Haku', artist);
+		artistId = idInput;
 		setWiki(artist);
 		map.addLayer(activeMarkers);
 		document.getElementById("provider-json").disabled = true;
@@ -175,6 +169,11 @@ function createMarkers(id) {
 				finishId();
 			}
 		}
+	}).fail(function () {
+		searchInProgress = false;
+		document.getElementById("provider-json").disabled = false;
+		document.getElementById("provider-json").value = artist;
+		document.getElementById("loader").style.display = "none";
 	});
 }
 
@@ -253,7 +252,8 @@ $('.openinfo, .closeinfo').on('click', function() {
 	$('#info').perfectScrollbar('update');
 });
 
-$(document).on("click", "#resetsearchbtn", function(){ 
+$(document).on("click", "#resetsearchbtn", function(){
+	artist = '';
 	removeMarkers();
 	document.getElementById("provider-json").value = "";
 	document.getElementById("resetsearch").style.display = "none";
@@ -274,8 +274,14 @@ new ResizeSensor(jQuery('#info'), function() {
 });
 
 $(function() {
-  $('select').selectric({
-          disableOnMobile: false,
-          nativeOnMobile: false
-           });
+	$('select').selectric({
+		disableOnMobile: false,
+		nativeOnMobile: false
+	}).on('change', function() {
+		var phrase = $("#provider-json").val()
+		if (phrase !== '') {
+			$("#provider-json").loadData(phrase);
+			setTimeout( function () {$("#provider-json").focus();}, 200);
+		}
+	});
 });

@@ -904,6 +904,117 @@ var EasyAutocomplete = (function(scope) {
       requestDelayTimeoutId;
 
     scope.consts = consts;
+	
+	this.loadData = function(inputPhrase) {
+
+		if (inputPhrase.length < config.get("minCharNumber")) {
+		  return;
+		}
+
+
+		if (config.get("data") !== "list-required") {
+
+		  var data = config.get("data");
+
+		  var listBuilders = listBuilderService.init(data);
+
+		  listBuilders = listBuilderService.updateCategories(listBuilders, data);
+		  
+		  listBuilders = listBuilderService.processData(listBuilders, inputPhrase);
+
+		  loadElements(listBuilders, inputPhrase);
+
+		  if ($field.parent().find("li").length > 0) {
+			showContainer();  
+		  } else {
+			hideContainer();
+		  }
+
+		}
+
+		var settings = createAjaxSettings();
+
+		if (settings.url === undefined || settings.url === "") {
+		  settings.url = config.get("url");
+		}
+
+		if (settings.dataType === undefined || settings.dataType === "") {
+		  settings.dataType = config.get("dataType");
+		}
+
+
+		if (settings.url !== undefined && settings.url !== "list-required") {
+
+		  settings.url = settings.url(inputPhrase);
+
+		  settings.data = config.get("preparePostData")(settings.data, inputPhrase);
+
+		  $.ajax(settings) 
+			.done(function(data) {
+
+			  var listBuilders = listBuilderService.init(data);
+
+			  listBuilders = listBuilderService.updateCategories(listBuilders, data);
+			  
+			  listBuilders = listBuilderService.convertXml(listBuilders);
+			  if (checkInputPhraseMatchResponse(inputPhrase, data)) {
+
+				listBuilders = listBuilderService.processData(listBuilders, inputPhrase);
+
+				loadElements(listBuilders, inputPhrase);  
+									
+			  }
+
+			  if (listBuilderService.checkIfDataExists(listBuilders) && $field.parent().find("li").length > 0) {
+				showContainer();  
+			  } else {
+				hideContainer();
+			  }
+
+			  config.get("ajaxCallback")();
+
+			})
+			.fail(function() {
+			  logger.warning("Fail to load response data");
+			})
+			.always(function() {
+
+			});
+		}
+
+		
+
+		function createAjaxSettings() {
+
+		  var settings = {},
+			ajaxSettings = config.get("ajaxSettings") || {};
+
+		  for (var set in ajaxSettings) {
+			settings[set] = ajaxSettings[set];
+		  }
+
+		  return settings;
+		}
+
+		function checkInputPhraseMatchResponse(inputPhrase, data) {
+
+		  if (config.get("matchResponseProperty") !== false) {
+			if (typeof config.get("matchResponseProperty") === "string") {
+			  return (data[config.get("matchResponseProperty")] === inputPhrase);
+			}
+
+			if (typeof config.get("matchResponseProperty") === "function") {
+			  return (config.get("matchResponseProperty")(data) === inputPhrase);
+			}
+
+			return true;
+		  } else {
+			return true;
+		  }
+
+		}
+
+	  }
 
     this.getConstants = function() {
       return consts;
@@ -945,6 +1056,7 @@ var EasyAutocomplete = (function(scope) {
     this.init = function() {
       init();
     };
+	
     function init() {
 
       if ($field.length === 0) {
@@ -1633,5 +1745,16 @@ var EasyAutocomplete = (function(scope) {
 
     return -1;
   };
+  
+ 	
+  $.fn.loadData = function(inputPhrase) {
+		
+	var inputId = $(this).attr("id");
+
+    if (inputId !== undefined) {
+      return EasyAutocomplete.getHandle(inputId).loadData(inputPhrase);
+    }
+
+  }
 
 })(jQuery);
