@@ -1,133 +1,143 @@
 <!DOCTYPE html>
 <html lang="fi">
-	<head>
+  <head>
 
-		<meta http-equiv="x-ua-compatible" content="IE=edge"/>
-		<title>Keikkahistoria.fi</title>
-		<meta charset="utf-8"/>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-		<meta name="description" content="Kiinnostaisiko nähdä, missä lempiesiintyjäsi on keikkaillut? Nyt se on mahdollista! Keikkahistoria näyttää esiintyjien keikkapaikat kartalla."/>
-		<meta name="rating" content="Safe For Kids"/>
-		<meta name="author" content="Joona Repo, Timo Nurmi"/>
-		<meta name="robots" content="index,follow"/>
-		<meta name="robots" content="noodp"/>
-		<meta name="apple-mobile-web-app-capable" content="yes"/>
-		<meta name="mobile-web-app-capable" content="yes"/>
-		<meta property="og:title" content="Keikkahistoria.fi"/>
-		<meta property="og:type" content="website"/>
-		<meta property="og:url" content="http://keikkahistoria.fi"/>
-		<meta property="og:image" content="/Images/keikkahistoria_promo_small.png"/>
-		<meta property="og:description" content="Kiinnostaisiko nähdä, missä lempiesiintyjäsi on keikkaillut? Nyt se on mahdollista! Keikkahistoria näyttää esiintyjien keikkapaikat kartalla."/>
-		<meta name="twitter:card" content="summary"/>
-		<meta name="twitter:url" content="http://keikkahistoria.fi"/>
-		<meta name="twitter:title" content="Keikkahistoria.fi"/>
-		<meta name="twitter:description" content="Kiinnostaisiko nähdä, missä lempiesiintyjäsi on keikkaillut? Nyt se on mahdollista! Keikkahistoria näyttää esiintyjien keikkapaikat kartalla."/>
-		<meta name="twitter:image" content="/Images/keikkahistoria_promo_small.png"/>
-		
-		<link rel="apple-touch-icon" sizes="180x180" href="/Images/apple-touch-icon.png"/>
-		<link rel="icon" type="image/png" href="/Images/favicon-32x32.png" sizes="32x32"/>
-		<link rel="icon" type="image/png" href="/Images/favicon-16x16.png" sizes="16x16"/>
-		<link rel="manifest" href="/manifest.json"/>
-		<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000"/>
-		<meta name="apple-mobile-web-app-title" content="Keikkahistoria.fi"/>
-		<meta name="application-name" content="Keikkahistoria.fi"/>
-		<meta name="theme-color" content="#ffffff"/>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-84599848-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-		<link rel="stylesheet" href="leaflet.css"/>
-		<link rel="stylesheet" href="MarkerCluster.css"/>
-		<link rel="stylesheet" href="MarkerCluster.default.css"/>
+      gtag('config', 'UA-84599848-1');
+    </script>
+    
+    <meta http-equiv="x-ua-compatible" content="IE=edge"/>
+    <title>Keikkahistoria.fi</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="description" content="Kiinnostaisiko nähdä, missä lempiesiintyjäsi on keikkaillut? Nyt se on mahdollista! Keikkahistoria näyttää esiintyjien keikkapaikat kartalla."/>
+    <meta name="rating" content="Safe For Kids"/>
+    <meta name="author" content="Joona Repo, Timo Nurmi"/>
+    <meta name="robots" content="index,follow"/>
+    <meta name="robots" content="noodp"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="mobile-web-app-capable" content="yes"/>
+    <meta property="og:title" content="Keikkahistoria.fi"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="http://keikkahistoria.fi"/>
+    <meta property="og:image" content="/Images/keikkahistoria_promo_small.png"/>
+    <meta property="og:description" content="Kiinnostaisiko nähdä, missä lempiesiintyjäsi on keikkaillut? Nyt se on mahdollista! Keikkahistoria näyttää esiintyjien keikkapaikat kartalla."/>
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:url" content="http://keikkahistoria.fi"/>
+    <meta name="twitter:title" content="Keikkahistoria.fi"/>
+    <meta name="twitter:description" content="Kiinnostaisiko nähdä, missä lempiesiintyjäsi on keikkaillut? Nyt se on mahdollista! Keikkahistoria näyttää esiintyjien keikkapaikat kartalla."/>
+    <meta name="twitter:image" content="/Images/keikkahistoria_promo_small.png"/>
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/Images/apple-touch-icon.png"/>
+    <link rel="icon" type="image/png" href="/Images/favicon-32x32.png" sizes="32x32"/>
+    <link rel="icon" type="image/png" href="/Images/favicon-16x16.png" sizes="16x16"/>
+    <link rel="manifest" href="/manifest.json"/>
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000"/>
+    <meta name="apple-mobile-web-app-title" content="Keikkahistoria.fi"/>
+    <meta name="application-name" content="Keikkahistoria.fi"/>
+    <meta name="theme-color" content="#ffffff"/>
+
+    <link rel="stylesheet" href="leaflet.css"/>
+    <link rel="stylesheet" href="MarkerCluster.css"/>
+    <link rel="stylesheet" href="MarkerCluster.default.css"/>
         <link rel="stylesheet" href="easy-autocomplete.css"/>
-		<link rel="stylesheet" href="perfect-scrollbar.css"/>
-		<link rel="stylesheet" href="keikkahistoriastyle.css"/>
+    <link rel="stylesheet" href="perfect-scrollbar.css"/>
+    <link rel="stylesheet" href="keikkahistoriastyle.css"/>
         <link rel="stylesheet" href="selectric.css"/>
-	
-		<script src="jquery-3.3.1.min.js"></script>
-		<script src="leaflet.js"></script>
-		<script src="leaflet.markercluster.js"></script>
-		<script src="jquery.easy-autocomplete.js"></script>
-		<script src='perfect-scrollbar.jquery.min.js'></script>
-		<script src="ResizeSensor.js"></script>
-		<script src="ElementQueries.js"></script>
+  
+    <script src="jquery-3.3.1.min.js"></script>
+    <script src="leaflet.js"></script>
+    <script src="leaflet.markercluster.js"></script>
+    <script src="jquery.easy-autocomplete.js"></script>
+    <script src='perfect-scrollbar.jquery.min.js'></script>
+    <script src="ResizeSensor.js"></script>
+    <script src="ElementQueries.js"></script>
         <script src="jquery.selectric.min.js"></script>
-		  
-	</head>
+      
+  </head>
 
         <body>      
-		
-		<div id="map"></div>
+    
+    <div id="map"></div>
         <div id="toggleinfo">
-			<a id="button" class="openinfo mobile-map">i</a>
-			<a id="button" class="closeinfo mobile-map"></a>
-		</div>
-		
-		<div class="mobilebackground mobile-map"></div>
+      <a id="button" class="openinfo mobile-map">i</a>
+      <a id="button" class="closeinfo mobile-map"></a>
+    </div>
+    
+    <div class="mobilebackground mobile-map"></div>
 
-		<div class="side-panel-top mobile-map">
-			<div class="side-panel-top-wrapper">
-				<div class="logo-container">
-					<img src="Images/keikkahistoria_logo_white.png" alt="Keikkahistoria-logo" title="Keikkahistoria-logo" />
-				</div>
-			</div>
-		</div> 
+    <div class="side-panel-top mobile-map">
+      <div class="side-panel-top-wrapper">
+        <div class="logo-container">
+          <img src="Images/keikkahistoria_logo_white.png" alt="Keikkahistoria-logo" title="Keikkahistoria-logo" />
+        </div>
+      </div>
+    </div> 
     
-		<div class="side-panel-middle">
-			<div class="side-panel-middle-wrapper">
-				<div class="hakuwrapper1">
-					<div class="hakuwrapper2">
-						<div class="hakualue">
-							<input id="provider-json" placeholder="ETSI ESIINTYJÄÄ"/>
-							<div id="resetsearch">
-								<a id="resetsearchbtn"><span>x</span></a>
-							</div>
-							<div id="loader">
-								<div id="loadericon">
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div id="changeyear">
-						<select>
-							<option value="2014">2014</option>
-							<option value="2015">2015</option>
-							<option value="2016">2016</option>
-							<option value="2017">2017</option>
-						</select>
-				</div>
-			</div>
-		</div>    
+    <div class="side-panel-middle">
+      <div class="side-panel-middle-wrapper">
+        <div class="hakuwrapper1">
+          <div class="hakuwrapper2">
+            <div class="hakualue">
+              <input id="provider-json" placeholder="ETSI ESIINTYJÄÄ"/>
+              <div id="resetsearch">
+                <a id="resetsearchbtn"><span>x</span></a>
+              </div>
+              <div id="loader">
+                <div id="loadericon">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="changeyear">
+            <select>
+              <option value="2014">2014</option>
+              <option value="2015">2015</option>
+              <option value="2016">2016</option>
+              <option value="2017" selected="selected">2017</option>
+            </select>
+        </div>
+      </div>
+    </div>    
     
     
-		<div class="side-panel-bottom mobile-map">
-			<div class="side-panel-bottom-wrapper">
-				<div class="info-wikipedia">
-					<div id="info">
-						<p>Kiinnostaisiko nähdä, missä lempiesiintyjäsi on keikkaillut? Nyt se on mahdollista!</p>
-						<h1>KÄYTTÖ</h1>
-						<p>Keikkahistoria näyttää esiintyjien keikkapaikat kartalla. Hae esiintyjää kirjoittamalla nimi hakukenttään ja valitse oikea vaihtoehto listalta. Jos et löydä etsimääsi, yritä hieman toisenlaisella kirjoitusasulla! Esimerkiksi etunimi voi olla lyhennetty, pisteellä tai ilman. Välimerkit vaikuttavat hakutuloksiin, kun taas kirjainkoolla ei ole merkitystä.</p>
-						<p>Haku on valmis, kun latausikoni hakukentän oikeassa reunassa on lakannut pyörimästä. Klikkaamalla keikkapaikkaa kartalla, voit tarkastella keikan tarkempia tietoja.</p>
-						<h1>TAUSTATIETOA</h1>
-						<p>Keikkahistoria hakee tiedot <a href="https://www.teosto.fi/" target="_blank">Teoston</a> tarjoaman avoimen rajapinnan (<a href="http://api.teosto.fi/" target="_blank">Teosto Open API</a>) kautta. Rajapinta tarjoaa tällä hetkellä käyttöön vuoden 2014 dataa. Esiintyjistä näytetään myös perustiedot <a href="https://fi.wikipedia.org/" target="_blank">Wikipediasta</a> vastaavan artikkelin löytyessä.</p>
-						<p>Haun toimivuuden parantamiseksi kokosimme ja siistimme alkuperäisestä Teoston datasta omalle palvelimelle listan esiintyjien nimistä ja niihin liittyvistä tunnisteista virheellisten tietojen ja päällekkäisyyksien poistamiseksi. Lista voi kuitenkin edelleen sisältää joitakin virheellisiä tietoja.</p>
-						<p>Kysymyksiä ja palautetta voi lähettää sähköpostilla:<br>info@keikkahistoria.fi</p>
-						<p>HTML & ulkoasu: Joona Repo<br>JavaScript: Timo Nurmi</p>
-						<p id="kiitokset">Kiitokset<br><a href="https://www.teosto.fi/" target="_blank">Teosto</a>, <a href="http://leafletjs.com/" target="_blank">Leaflet</a>, <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>, <a href="https://www.mapbox.com/" target="_blank">Mapbox</a>, <a href="https://fi.wikipedia.org/" target="_blank">Wikipedia</a>, <a href="https://jquery.com/" target="_blank">jQuery</a>, <a href="http://easyautocomplete.com/" target="_blank">EasyAutocomplete</a>, <a href="http://noraesae.github.io/perfect-scrollbar/" target="_blank">perfect-scrollbar</a>, <a href="https://github.com/marcj/css-element-queries" target="_blank">CSS Element Queries</a> & <a href="https://github.com/Leaflet/Leaflet.markercluster" target="_blank">Leaflet.markercluster</a></p>
-					</div>
-					<div id="artistinfo">
-						<div class="wikipediacontent">
-							<p id="artist"></p> 
-							<p id="showcount"></p>
-							<p id="wiki"></p>
-							<p id="googlehaku"></p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+    <div class="side-panel-bottom mobile-map">
+      <div class="side-panel-bottom-wrapper">
+        <div class="info-wikipedia">
+          <div id="info">
+            <p>Kiinnostaisiko nähdä, missä lempiesiintyjäsi on keikkaillut? Nyt se on mahdollista!</p>
+            <h1>KÄYTTÖ</h1>
+            <p>Keikkahistoria näyttää esiintyjien keikkapaikat kartalla. Valitse pudotusvalikosta vuosi, jonka keikkatietoja haluat tarkastella, hae esiintyjää kirjoittamalla nimi hakukenttään ja valitse oikea vaihtoehto listalta. Jos et löydä etsimääsi, yritä hieman toisenlaisella kirjoitusasulla! Haku palauttaa tuloksia rajapinnan rajoituksista (ks. alla) johtuen vain kokonaisilla sanoilla: jos haet esimerkiksi J. Karjalaisen keikkatietoja, käytä hakusanaa "karjalainen". Vinkki: Voit koittaa hakea myös ulkomaisia artisteja kirjoittamalla hakuun esim. "swe", "est" tai muun kolmikirjaimisen englanninkielisen maalyhenteen!</p>
+            <p>Haku on valmis, kun latausikoni hakukentän oikeassa reunassa on lakannut pyörimästä. Klikkaamalla keikkapaikkaa kartalla, voit tarkastella keikan tarkempia tietoja.</p>
+            <h1>TAUSTATIETOA</h1>
+            <p>Keikkahistoria hakee tiedot <a href="https://www.teosto.fi/" target="_blank">Teoston</a> tarjoaman avoimen rajapinnan (<a href="http://api.teosto.fi/" target="_blank">Teosto Open API</a>) kautta. Rajapinta tarjoaa tällä hetkellä käyttöön vuosien 2014-2017 dataa. Esiintyjistä näytetään myös perustiedot <a href="https://fi.wikipedia.org/" target="_blank">Wikipediasta</a> vastaavan artikkelin löytyessä.</p>
+            <p>Teoston rajapinta palauttaa tuloksia ainoastaan kokonaisilla sanoilla, eivätkä kaikki välimerkit tai erikoismerkit toimi haussa. Näkemäsi kirjoitusasut ja tiedot tulevat sellaisenaan Teoston rajapinnasta. Useammassa tapauksessa artisti on voinut esiintyä toisen artistin kanssa, jolloin artistin nimellä löytyy monta eri osumaa erilaisilla nimikombinaatioilla.</p>
+            <p>Kysymyksiä ja palautetta voi lähettää sähköpostilla:<br>info@keikkahistoria.fi</p>
+            <p>HTML & ulkoasu: Joona Repo<br>JavaScript: Timo Nurmi</p>
+            <p id="kiitokset">Kiitokset<br><a href="https://www.teosto.fi/" target="_blank">Teosto</a>, <a href="http://leafletjs.com/" target="_blank">Leaflet</a>, <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>, <a href="https://www.mapbox.com/" target="_blank">Mapbox</a>, <a href="https://fi.wikipedia.org/" target="_blank">Wikipedia</a>, <a href="https://jquery.com/" target="_blank">jQuery</a>, <a href="http://easyautocomplete.com/" target="_blank">EasyAutocomplete</a>, <a href="http://noraesae.github.io/perfect-scrollbar/" target="_blank">perfect-scrollbar</a>, <a href="https://github.com/marcj/css-element-queries" target="_blank">CSS Element Queries</a> & <a href="https://github.com/Leaflet/Leaflet.markercluster" target="_blank">Leaflet.markercluster</a></p>
+          </div>
+          <div id="artistinfo">
+            <div class="wikipediacontent">
+              <p id="artist"></p> 
+              <p id="showcount"></p>
+              <p id="wiki"></p>
+              <p id="googlehaku"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-		<script type='text/javascript' src='Map.js'></script>
-		<script type='text/javascript' src='WikiInfo.js'></script>
-	  
-	</body>
+    <script type='text/javascript' src='Map.js'></script>
+    <script type='text/javascript' src='WikiInfo.js'></script>
+
+  </body>
    
 </html>

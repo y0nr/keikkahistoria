@@ -274,14 +274,21 @@ new ResizeSensor(jQuery('#info'), function() {
 });
 
 $(function() {
-	$('select').selectric({
-		disableOnMobile: false,
-		nativeOnMobile: false
-	}).on('change', function() {
-		var phrase = $("#provider-json").val()
-		if (phrase !== '') {
-			$("#provider-json").loadData(phrase);
-			setTimeout( function () {$("#provider-json").focus();}, 200);
-		}
-	});
+  $('select').selectric({
+    disableOnMobile: false,
+    nativeOnMobile: false
+  }).on('change', function() {
+    var phrase = $("#provider-json").val()
+    if (phrase !== '') {
+      $("#provider-json").loadData(phrase);
+      setTimeout( function () {$("#provider-json").focus();}, 200);
+    }
+  });
+  $('select').on('selectric-change selectric-select', function(event, element, selectric) {
+    var phrase = $("#provider-json").val()
+    if (phrase !== '') {
+      $("#provider-json").loadData(phrase);
+      setTimeout( function () {$("#provider-json").focus();}, 200);
+    }
+ });
 });
